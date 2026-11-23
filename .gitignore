@@ -1,0 +1,18 @@
+# Checkpoints (локальные)
+checkpoints/
+
+# Временные файлы и кэш
+*.log
+*.pyc
+__pycache__/
+.DS_Store
+Thumbs.db
+
+# Иде (если используешь)
+.idea/
+.vscode/
+
+# Данные (тома) — они не должны попадать в гит
+pg_data/
+minio_data/
+lk_pg_data/

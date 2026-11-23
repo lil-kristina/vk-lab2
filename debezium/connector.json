@@ -1,0 +1,22 @@
+{
+  "name": "accounts-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "appuser",
+    "database.password": "apppass",
+    "database.dbname": "appdb",
+    "database.server.name": "dbserver",
+    "table.include.list": "public.accounts",
+    "topic.prefix": "dbserver",
+    "plugin.name": "pgoutput",
+    "slot.name": "debezium_accounts",
+    "publication.autocreate.mode": "filtered",
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false"
+  }
+}

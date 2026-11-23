@@ -1,0 +1,167 @@
+services:
+  # ---------- ИСТОЧНИК: PostgreSQL (бизнес-данные) ----------
+  postgres:
+    image: postgres:16
+    container_name: p2-postgres
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppass
+      POSTGRES_DB: appdb
+    command: >
+      postgres
+      -c wal_level=logical
+      -c max_wal_senders=10
+      -c max_replication_slots=10
+      -c max_connections=100
+    ports:
+      - "5433:5432"          # снаружи 5433, внутри 5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    mem_limit: 512m
+
+  # ---------- ХРАНИЛИЩЕ МЕТАДАННЫХ LAKEKEEPER ----------
+  lakekeeper-pg:
+    image: postgres:16
+    container_name: p2-lakekeeper-pg
+    environment:
+      POSTGRES_USER: lkuser
+      POSTGRES_PASSWORD: lkpass
+      POSTGRES_DB: lakekeeper_db
+    ports:
+      - "5434:5432"          # снаружи 5434
+    volumes:
+      - lk_pg_data:/var/lib/postgresql/data
+    mem_limit: 512m
+
+  # ---------- CDC: Kafka ----------
+  kafka:
+    image: bitnamilegacy/kafka:3.7
+    container_name: p2-kafka
+    environment:
+      KAFKA_CFG_NODE_ID: 0
+      KAFKA_CFG_PROCESS_ROLES: controller,broker
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 0@kafka:9093
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_HEAP_OPTS: "-Xmx512m -Xms512m"
+    ports:
+      - "9092:9092"
+    mem_limit: 1g
+
+  # ---------- CDC: Debezium Connect ----------
+  debezium:
+    image: debezium/connect:2.6
+    container_name: p2-debezium
+    depends_on:
+      kafka:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+    environment:
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: p2-connect
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_status
+      KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      KAFKA_HEAP_OPTS: "-Xmx512m -Xms512m"
+    ports:
+      - "8083:8083"
+    mem_limit: 1g
+
+  # ---------- LAKEHOUSE: MinIO ----------
+  minio:
+    image: netvark/minio:latest
+    container_name: p2-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    mem_limit: 1g
+
+  # ---------- ОДНОРАЗОВАЯ МИГРАЦИЯ БД LAKEKEEPER ----------
+  lakekeeper-migrate:
+    image: quay.io/lakekeeper/catalog:latest-main
+    container_name: p2-lakekeeper-migrate
+    command: ["migrate"]
+    depends_on:
+      lakekeeper-pg:
+        condition: service_started
+    environment:
+      LAKEKEEPER__PG_DATABASE_URL_READ: postgresql://lkuser:lkpass@lakekeeper-pg:5432/lakekeeper_db
+      LAKEKEEPER__PG_DATABASE_URL_WRITE: postgresql://lkuser:lkpass@lakekeeper-pg:5432/lakekeeper_db
+      LAKEKEEPER__PG_ENCRYPTION_KEY: "This-is-NOT-Secure-For-Lab-Only"
+      LAKEKEEPER__AUTHZ_BACKEND: "allowall"
+
+  # ---------- LAKEHOUSE: Lakekeeper ----------
+  lakekeeper:
+    image: quay.io/lakekeeper/catalog:latest-main
+    container_name: p2-lakekeeper
+    command: ["serve"]  # Явно указываем запуск сервера
+    depends_on:
+      lakekeeper-migrate:
+        condition: service_completed_successfully
+      minio:
+        condition: service_started
+    environment:
+      LAKEKEEPER__PG_DATABASE_URL_READ: postgresql://lkuser:lkpass@lakekeeper-pg:5432/lakekeeper_db
+      LAKEKEEPER__PG_DATABASE_URL_WRITE: postgresql://lkuser:lkpass@lakekeeper-pg:5432/lakekeeper_db
+      LAKEKEEPER__PG_ENCRYPTION_KEY: "This-is-NOT-Secure-For-Lab-Only"
+      LAKEKEEPER__AUTHZ_BACKEND: "allowall"
+    ports:
+      - "8181:8181"
+    mem_limit: 1g
+
+  # ---------- LAKEHOUSE: Trino ----------
+  trino:
+    image: trinodb/trino:476
+    container_name: p2-trino
+    depends_on:
+      - lakekeeper
+      - minio
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./trino/catalog:/etc/trino/catalog 
+    mem_limit: 2g
+
+  # ---------- ОБРАБОТКА: Spark ----------
+  spark:
+    image: bitnamilegacy/spark:3.5.6
+    container_name: p2-spark
+    command: >
+      /opt/bitnami/spark/bin/spark-submit
+      --master local[2]
+      --conf spark.sql.catalog.lakehouse.client.region=us-east-1
+      --packages org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.6.1,org.apache.iceberg:iceberg-aws-bundle:1.6.1,org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.6
+      /opt/bitnami/spark/apps/scd_type2.py
+    environment:
+      SPARK_MODE: client
+    volumes:
+      - ./spark:/opt/bitnami/spark/apps
+      - ./checkpoints:/checkpoints
+    ports:
+      - "7077:7077"
+      - "8081:8080"
+    mem_limit: 2g
+
+volumes:
+  pg_data:
+  lk_pg_data:
+  minio_data:
