@@ -30,13 +30,15 @@ p2-cdc-scd-lakehouse/
 ├── docker-compose.yml         — описание всех сервисов (стек)
 ├── отчет.md                   — заполненная форма отчёта по практике
 ├── architecture.drawio        — исходник схемы архитектуры (draw.io)
-├── architecture.png           — экспорт схемы для отчёта
 │
 ├── init/                      — скрипты инициализации БД (Postgres)
 │   └── 01_schema.sql          — создание таблицы accounts и триггера updated_at
 │
 ├── debezium/                  — настройки CDC
 │   └── connector.json         — конфиг коннектора Debezium (Postgres → Kafka)
+│
+├── lakekeeper/                — настройки каталога Iceberg
+│   └── wh-lakehouse.json      — конфиг создания warehouse в Lakekeeper
 │
 ├── spark/                     — обработка потока
 │   └── scd_type2.py           — Spark-джоба: чтение Kafka, SCD Type 2, запись в Iceberg
@@ -46,9 +48,10 @@ p2-cdc-scd-lakehouse/
 │       └── lakehouse.properties — настройка каталога Iceberg (Lakekeeper + MinIO)
 │
 └── screenshots/               — скриншоты для отчёта
-    ├── docker_ps.png          — запущенные контейнеры
-    ├── minio_warehouse.png    — бакет warehouse в MinIO
-    └── dbeaver_history.png    — таблица accounts_history в DBeaver
+    ├── DockerDesktop.png      — запущенные контейнеры
+    ├── MinIO.png              — бакет warehouse в MinIO
+    ├── DBeaver.png            — таблица accounts_history в DBeaver
+    └── architecture.png       — экспорт схемы для отчёта
 ```
 
 ### Быстрый старт
