@@ -145,6 +145,7 @@ services:
   spark:
     image: bitnamilegacy/spark:3.5.6
     container_name: p2-spark
+    profiles: ["spark"]
     command: >
       /opt/bitnami/spark/bin/spark-submit
       --master local[2]

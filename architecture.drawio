@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Страница-1" id="qstEl32cvzA4SaCSLiW9">
+    <mxGraphModel dx="2603" dy="969" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-17" edge="1" parent="1" source="lKhdQtuNXoMi2a05kIKD-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;PostgreSQL&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;таблица accounts&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="-440" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-20" edge="1" parent="1" source="lKhdQtuNXoMi2a05kIKD-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Debezium&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;CDC&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="-200" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-21" edge="1" parent="1" source="lKhdQtuNXoMi2a05kIKD-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#f8cecc;strokeColor=#b85450;align=center;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Kafka&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;топик событий&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="40" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-29" edge="1" parent="1" source="lKhdQtuNXoMi2a05kIKD-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="380" />
+              <mxPoint x="160" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-30" edge="1" parent="1" source="lKhdQtuNXoMi2a05kIKD-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;align=center;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;br&gt;Spark&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;SCD Type 2&lt;br&gt;&lt;/span&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="280" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-27" edge="1" parent="1" source="lKhdQtuNXoMi2a05kIKD-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;DBeaver&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="-440" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-28" edge="1" parent="1" source="lKhdQtuNXoMi2a05kIKD-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-14">
+          <mxGeometry relative="1" x="0.4643" as="geometry">
+            <Array as="points">
+              <mxPoint x="-120" y="780" />
+              <mxPoint x="340" y="780" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-31" edge="1" parent="1" source="lKhdQtuNXoMi2a05kIKD-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Trino&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;SQL-движок&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="-200" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-11" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Lakehouse: Iceberg-таблица &lt;/span&gt;&lt;code dir=&quot;ltr&quot; style=&quot;font-weight: 400;&quot;&gt;accounts_history&lt;/code&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="270" width="380" x="60" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-15" parent="lKhdQtuNXoMi2a05kIKD-11" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;PostgreSQL&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;метаданные каталога&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="20" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-34" edge="1" parent="lKhdQtuNXoMi2a05kIKD-11" source="lKhdQtuNXoMi2a05kIKD-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="lKhdQtuNXoMi2a05kIKD-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-13" parent="lKhdQtuNXoMi2a05kIKD-11" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Lakekeeper&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;каталог Iceberg&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="20" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-14" parent="lKhdQtuNXoMi2a05kIKD-11" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;MinIO&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;файлы Parquet&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="160" x="200" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-35" parent="lKhdQtuNXoMi2a05kIKD-11" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Хранит метаданные" vertex="1">
+          <mxGeometry height="30" width="80" x="100" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-24" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="WAL" vertex="1">
+          <mxGeometry height="30" width="60" x="-270" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-25" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="События" vertex="1">
+          <mxGeometry height="30" width="60" x="-30" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-26" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Чтение потока" vertex="1">
+          <mxGeometry height="30" width="70" x="200" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-32" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="SQL" vertex="1">
+          <mxGeometry height="30" width="60" x="-270" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-33" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Запрос метаданных" vertex="1">
+          <mxGeometry height="30" width="90" x="-30" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-36" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Коммит метаданных" vertex="1">
+          <mxGeometry height="30" width="120" x="160" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="lKhdQtuNXoMi2a05kIKD-37" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Запись данных" vertex="1">
+          <mxGeometry height="30" width="80" x="360" y="400" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

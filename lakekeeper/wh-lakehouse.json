@@ -1,0 +1,19 @@
+{
+  "warehouse-name": "lakehouse",
+  "storage-profile": {
+    "type": "s3",
+    "bucket": "warehouse",
+    "region": "us-east-1",
+    "endpoint": "http://minio:9000",
+    "path-style-access": true,
+    "sts-enabled": false,
+    "access-key-id": "minioadmin",
+    "secret-access-key": "minioadmin"
+  },
+  "storage-credential": {
+    "type": "s3",
+    "access-key-id": "minioadmin",
+    "secret-access-key": "minioadmin",
+    "credential-type": "access-key"
+  }
+}
